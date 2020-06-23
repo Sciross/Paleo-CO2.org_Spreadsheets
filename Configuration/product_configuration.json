@@ -1,0 +1,164 @@
+{
+    "version":"1.0",
+    "root_folder":"./../Data/Product",
+    "column_header_map":"./../Configuration/column_header_map.json",
+    "proxy_name_map":"./../Configuration/proxy_name_map.json",
+    "output_file":"Paleo-CO2_Product.json",
+    "log_file":"product_log.txt",
+    "file_endings":["xls","xlsx"],
+    "header_rows":3,
+    "missing_value":"NA",
+    "use_background_colors":true,
+    "background_colors":["grey","black"],
+    "use_text_colors":true,
+    "text_color_bits":24,
+    "text_colors":{"PASS":"#00ff00","WARN":"yellow","FAIL":"red"},
+    "properties":
+    [
+        {
+            "name":"proxy",
+            "column":"C",
+            "type":"text",
+            "acceptable_values":["Phytoplankton","Boron isotopes","Stomatal Frequencies","Leaf Gas Exchange","Liverworts","Leaf Carbon Isotopes","Paleosols","Nahcolite/Trona"],
+            "match_case":false,
+            "required":true
+        },
+        {
+            "name":"age_ka",
+            "column":"G",
+            "type":"numeric",
+            "hard_limits":[0,null]
+        },
+        {
+            "name":"age_uncertainty_pos_ka",
+            "column":"H",
+            "type":"numeric",
+            "hard_limits":[0,null],
+            "match_case":false
+        },
+        {
+            "name":"age_uncertainty_neg_ka",
+            "column":"I",
+            "type":"numeric",
+            "hard_limits":[0,null],
+            "match_case":false
+        },
+        {
+            "name":"CO2_ppm",
+            "column":"J",
+            "type":"numeric",
+            "hard_limits":[0,null],
+            "match_case":false
+        },
+        {
+            "name":"CO2_uncertainty_pos_ppm",
+            "column":"K",
+            "type":"numeric",
+            "hard_limits":[0,null],
+            "match_case":false
+        },
+        {
+            "name":"CO2_uncertainty_neg_ppm",
+            "column":"L",
+            "type":"numeric",
+            "hard_limits":[0,null],
+            "match_case":false
+        },
+        {
+            "name":"Reference of the data product",
+            "column":"Y",
+            "type":"reference",
+            "match_case":false
+        },
+        {
+            "name":"DOI link to reference",
+            "column":"Z",
+            "type":"DOI",
+            "match_case":false
+        },
+        {
+            "name":"CO2 data as originally published (TRUE or FALSE)",
+            "column":"M",
+            "type":"Boolean",
+            "match_case":false
+        },
+        {
+            "name":"CO2 data 'quarantined', i.e. considered untrustworthy as quantitative estimate or outdated in current form (TRUE or FALSE), enter YES if estimate is qualitatively promising",
+            "column":"N",
+            "type":"Boolean",
+            "match_case":false
+        },
+        {
+            "name":"specify reason for quarantine",
+            "column":"O",
+            "type":"Boolean",
+            "match_case":false
+        },
+        {
+            "name":"CO2 data superseded by (please list doi if TRUE, otherwise FALSE)",
+            "column":"P",
+            "type":"DOI",
+            "match_case":false
+        },
+        {
+            "name":"CO2 recalculated by paleo-CO2.org (TRUE or FALSE)",
+            "column":"Q",
+            "type":"Boolean",
+            "match_case":false
+        },
+        {
+            "name":"specify reason for CO2 revision",
+            "column":"R",
+            "type":"Boolean",
+            "match_case":false
+        },
+        {
+            "name":"age data as originally published (TRUE or FALSE)",
+            "column":"S",
+            "type":"Boolean",
+            "match_case":false
+        },
+        {
+            "name":"age data quarantined (TRUE of FALSE)",
+            "column":"T",
+            "type":"Boolean",
+            "match_case":false
+        },
+        {
+            "name":"specify reason for quarantine",
+            "column":"U",
+            "type":"Boolean",
+            "match_case":false
+        },
+        {
+            "name":"age data superseded by (please list doi if TRUE, otherwise FALSE)",
+            "column":"V",
+            "type":"DOI",
+            "match_case":false
+        },
+        {
+            "name":"age recalculated by paleo-CO2.org (TRUE or FALSE)",
+            "column":"W",
+            "type":"Boolean",
+            "match_case":false
+        },
+        {
+            "name":"specify reason for age revision",
+            "column":"X",
+            "type":"Boolean",
+            "match_case":false
+        },
+        {
+            "name":"Modern Latitude (decimal degree, south negative)",
+            "column":"?",
+            "type":"numeric",
+            "match_case":false
+        },
+        {
+            "name":"Modern Longitude (decimal degree, west negative)",
+            "column":"?",
+            "type":"numeric",
+            "match_case":false
+        }
+    ]
+}
