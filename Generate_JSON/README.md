@@ -25,11 +25,11 @@ The converter does not parse or interpret the content of the spreadsheets, inste
 Ensure the [dependencies](#Requirements) are installed, then call the [GenerateJSON_Flat.py](/GenerateJSON_Flat.py) with a configuration file as the only input. The configuration file controls the output.
 
 ```python
-python3 GenerateJSON ./../Configuration/archive_configuration.json
+python3 GenerateJSON.py ./../Configuration/archive_configuration.json
 ```
 or
 ```python
-python3 GenerateJSON ./../Configuration/product_configuration.json
+python3 GenerateJSON.py ./../Configuration/product_configuration.json
 ```
 
 ---

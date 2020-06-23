@@ -34,11 +34,11 @@ The Verifier uses only one of the two output files specified in the configuratio
 Ensure the [dependencies](#Requirements) are installed, then call the [VerifyPaleoCO2Spreadsheets.py](/VerifyPaleoCO2Spreadsheets.py) with a configuration file as the only input.
 
 ```python
-python3 VerifyPaleoCO2Spreadsheets ./../Configuration/archive_configuration.json
+python3 VerifyPaleoCO2Spreadsheets.py ./../Configuration/archive_configuration.json
 ```
 or
 ```python
-python3 VerifyPaleoCO2Spreadsheets ./../Configuration/product_configuration.json
+python3 VerifyPaleoCO2Spreadsheets.py ./../Configuration/product_configuration.json
 ```
 
 ---
