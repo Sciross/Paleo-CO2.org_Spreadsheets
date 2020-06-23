@@ -33,20 +33,30 @@ The Verifier uses only one of the two output files specified in the configuratio
 ## How do I run it?
 Ensure the [dependencies](#Requirements) are installed, then call the [VerifyPaleoCO2Spreadsheets.py](/VerifyPaleoCO2Spreadsheets.py) with a configuration file as the only input.
 
+```python
+python3 VerifyPaleoCO2Spreadsheets ./../Configuration/archive_configuration.json
+```
+or
+```python
+python3 VerifyPaleoCO2Spreadsheets ./../Configuration/product_configuration.json
+```
+
 ---
 
 ## The configuration file
-An example of the configuration file can be found [here](/configuration/example.json). There are 13 top level settings, which can be subdivided as follows:
+An example of the configuration file can be found [here](./../Configuration/example.json). There are 13 top level settings, which can be subdivided as follows:
 
 ### Metadata
 &nbsp;&nbsp;&nbsp;&nbsp;`version` - increment as needed
 
 ### Inputs
 &nbsp;&nbsp;&nbsp;&nbsp;`root_folder` - This is folder over which the program will iterate (e.g. [/Data/Archive/](/Data/Archive/) )  
+&nbsp;&nbsp;&nbsp;&nbsp; `column_header_map` : Used as a translation map for column names in the [Generate_JSON.py](./../Generate_JSON/GenerateJSON.py) script  
+&nbsp;&nbsp;&nbsp;&nbsp; `proxy_name_map`  : Used as a translation map for proxy names in the [Generate_JSON.py](./../Generate_JSON/GenerateJSON.py) script  
 &nbsp;&nbsp;&nbsp;&nbsp;`file_endings`: A list of file suffixes to process (e.g. [.xls,.xlsx] will process Excel files)
 
 ### Outputs
-&nbsp;&nbsp;&nbsp;&nbsp;`output_file` - Determines an output JSON file if one is required (more useful for the spreadsheet -> JSON translation)
+&nbsp;&nbsp;&nbsp;&nbsp;`output_file` - Determines an output JSON file if one is required (more useful for the spreadsheet -> JSON translation)  
 &nbsp;&nbsp;&nbsp;&nbsp;`log_file` - Filepath for the output .txt file (e.g. "log.txt")
 
 ### Settings
@@ -72,7 +82,7 @@ Colors beginning with # are assumed to be RGB codes (only supported in 24 bit co
 The properties field is an array of objects, each of which corresponds to a single column in the Excel spreadsheets. There are several options which control the analysis of each column:
 
 &nbsp;&nbsp;&nbsp;&nbsp;`name` - The name of the column, which must be found after the number of specified header rows (e.g. "proxy")  
-&nbsp;&nbsp;&nbsp;&nbsp;`column` - The alphabetical column index (e.g. "A")  
+&nbsp;&nbsp;&nbsp;&nbsp;`column` - The alphabetical column index (e.g. "A"). If _?_ is used, the Verifier will attempt to search for the column with the specified `name` (it can be a different column in each spreadsheet)  
 &nbsp;&nbsp;&nbsp;&nbsp;`type` - The type of data in the column, valid options are `"text"`,`"numeric"`,`"DOI"` and `"reference"`  
 &nbsp;&nbsp;&nbsp;&nbsp;`hard_limits` - A two element array in the form `[minimum,maximum]`. The file will fail the checks if the value is outside of these limits.  
 &nbsp;&nbsp;&nbsp;&nbsp;`soft_limits` - A two element array in the form `[minimum,maximum]`. A warning will be issued if the values are outside of these limits.  

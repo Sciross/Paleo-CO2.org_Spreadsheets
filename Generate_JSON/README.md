@@ -24,6 +24,14 @@ The converter does not parse or interpret the content of the spreadsheets, inste
 ## How do I run it?
 Ensure the [dependencies](#Requirements) are installed, then call the [GenerateJSON_Flat.py](/GenerateJSON_Flat.py) with a configuration file as the only input. The configuration file controls the output.
 
+```python
+python3 GenerateJSON ./../Configuration/archive_configuration.json
+```
+or
+```python
+python3 GenerateJSON ./../Configuration/product_configuration.json
+```
+
 ---
 
 ## The configuration file
@@ -34,6 +42,8 @@ An example of the configuration file can be found [here](/configuration/example.
 
 ### Inputs
 &nbsp;&nbsp;&nbsp;&nbsp;`root_folder` - This is folder over which the program will iterate (e.g. [/Data/Archive/](/Data/Archive/) )  
+&nbsp;&nbsp;&nbsp;&nbsp; `column_header_map` : Used as a translation map for column names in the [Generate_JSON.py](./../Generate_JSON/GenerateJSON.py) script  
+&nbsp;&nbsp;&nbsp;&nbsp; `proxy_name_map`  : Used as a translation map for proxy names in the [Generate_JSON.py](./../Generate_JSON/GenerateJSON.py) script  
 &nbsp;&nbsp;&nbsp;&nbsp;`file_endings`: A list of file suffixes to process (e.g. [.xls,.xlsx] will process Excel files)
 
 ### Outputs
