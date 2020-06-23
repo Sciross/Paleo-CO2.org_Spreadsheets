@@ -7,7 +7,7 @@ A python script to verify the data in paleo-CO2.org spreadsheets
 `python3` - version 3.0+ (tested with version 3.6.8)  
 [`xlrd`](https://pypi.org/project/xlrd/) - available through pip (tested with version 1.2.0)  
 [`requests`](https://pypi.org/project/requests/) - available through pip (tested with version 2.23.0)  
-[`json_me`](/json_me) - a slight variation of the python JSON library
+[`json_alternate`](./../Libraries/json_alternate) - a slight variation of the python JSON library
 
 ## What does it do?
 The Verifier class is designed to iterate over a folder of spreadsheets formatted for [paleo-co2.org](paleo-co2.org). A configuration file is used to control which columns should be checked and what should be in those columns.

@@ -4,7 +4,7 @@
 ## Requirements
 `python3` - version 3.0+ (tested with version 3.6.8)  
 [`xlrd`](https://pypi.org/project/xlrd/) - available through pip (tested with version 1.2.0)  
-[`json_me`](/json_me) - a slight variation of the python JSON library
+[`json_alternate`](./../Libraries/json_alternate) - a slight variation of the python JSON library
 
 ## What does it do?
 The paleo-co2.org spreadsheet -> JSON converter is designed to iterate over a folder of preverified spreadsheets formatted for [paleo-co2.org](paleo-co2.org).
@@ -35,7 +35,7 @@ python3 GenerateJSON ./../Configuration/product_configuration.json
 ---
 
 ## The configuration file
-An example of the configuration file can be found [here](/configuration/example.json). There are 13 top level settings, which can be subdivided as follows:
+An example of the configuration file can be found [here](./../Configuration/example.json). There are 13 top level settings, which can be subdivided as follows:
 
 ### Metadata
 &nbsp;&nbsp;&nbsp;&nbsp;`version` - increment as needed
