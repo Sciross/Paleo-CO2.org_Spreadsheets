@@ -1,25 +1,23 @@
-# Translates an array of orders into a string (for index to alphabetic index)
-
 import sys
 import os
 import math
 import xlrd # Dependency (can be installed through pip)
 
-sys.path.append('./../Libraries')
+sys.path.append('./../Libraries') # Add the library folder to the path
 import json_alternate as json  # Needs local
 
 class FlatEncoder(json.JSONEncoder): # Encodes an array of objects into a JSON array of objects
     def default(self,input):
         if isinstance(input,Dataset):
-            datapoints_as_dictionaries = tuple(input.convertDatapointsToFlatDictionaries()) # Use a tule to prevent additional brackets
+            datapoints_as_dictionaries = tuple(input.convertDatapointsToFlatDictionaries()) # Use a tuple to prevent additional brackets
             return datapoints_as_dictionaries
 
 class Compilation(): # Class to contain multiple datasets
     def __init__(self):
         self.checkCommandLineInput() # Ensure there is an input configuration file
         self.importConfiguration() # Import the configuration file
-        self.importColumnHeaderMap()
-        self.importProxyNameMap()
+        self.importColumnHeaderMap() # Import the column header map
+        self.importProxyNameMap() # Import the proxy name map
 
         self.correctRootFolder() # Append a / to the root folder if necessary
 
@@ -33,14 +31,14 @@ class Compilation(): # Class to contain multiple datasets
         file = open(str(sys.argv[1]),"r")
         self.configuration = json.load(file)
         file.close()
-    def importColumnHeaderMap(self):
+    def importColumnHeaderMap(self): # Opens and imports the JSON column header map (if it exists)
         if "column_header_map" in self.configuration.keys() and self.configuration["column_header_map"]:
             file = open(str(self.configuration["column_header_map"]),"r")
             self.column_header_map = json.load(file)
             file.close()
         else:
-            self.column_header_map = None
-    def importProxyNameMap(self):
+            self.column_header_map = None # Set to None if there is no file
+    def importProxyNameMap(self): # Opens and imports the JSON proxy name map (if it exists)
         if "proxy_name_map" in self.configuration.keys() and self.configuration["proxy_name_map"]:
             file = open(str(self.configuration["proxy_name_map"]),"r")
             self.proxy_name_map = json.load(file)
@@ -102,7 +100,7 @@ class Dataset(): # Class to contain multiple datapoints
             if column_index:
                 output_dictionary[column_name] = self._sheet.col_values(self.charactersToOrd(column_index))[self._header_rows:]
         self.data_by_column = output_dictionary
-    def replaceNA(self):
+    def replaceNA(self): # Replaces NA in the spreadsheets with None
         for datapoint_index in range(len(self.data_by_column["proxy"])):
             for column in self.data_by_column:
                 if self.data_by_column[column][datapoint_index]=="NA":
@@ -112,11 +110,11 @@ class Dataset(): # Class to contain multiple datapoints
             self.datapoints += [Datapoint()]
             for column in self.data_by_column:
                 self.datapoints[-1].__dict__[column] = self.data_by_column[column][datapoint_index]
-    def correctColumnName(self,name): # Uses a name map, if one is available, to translate header row names
+    def correctColumnName(self,name): # Uses a column header map, if one is available, to translate header row names
         if self.column_header_map and name in self.column_header_map:
             return self.column_header_map[name]
         return name
-    def correctProxyName(self,name): # Uses a name map, if one is available, to translate header row names
+    def correctProxyName(self,name): # Uses a proxy name map, if one is available, to translate proxy names to match website
         if self.proxy_name_map and name in self.proxy_name_map:
             return self.proxy_name_map[name]
         return name

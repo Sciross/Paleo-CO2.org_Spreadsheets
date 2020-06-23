@@ -4,7 +4,7 @@ import math
 import xlrd             # Needs install (available through pip)
 import requests         # Needs install (available through pip)
 
-sys.path.append('./../Libraries')
+sys.path.append('./../Libraries') # Add the library folder to the path
 import json_alternate as json  # Needs local folder
 
 class Verifier:
@@ -19,7 +19,6 @@ class Verifier:
         self.createOutputFile()
 
         self.correctRootFolder()
-        #self.calculateColumnIndex()
         self.setMissingValue()
 
         self.defineColors()
@@ -404,8 +403,8 @@ class Verifier:
                 self.writeOutput("1. Values in column "+self._current_property["column"]+" are not any of the acceptable values")
             elif fail_count>0:
                 self.writeOutput(output_string)
-    def checkDOI(self):
-        def doCheck(self):
+    def checkDOI(self): # Checks that values specified as DOI's resolve to a valid URL
+        def doCheck(self): # Container method to apply the logic
             output_string = ""
             fail_count = 0
             self.last_doi_requested = None
@@ -413,11 +412,11 @@ class Verifier:
                 value = self.current_sheet.cell_value(self._current_header_rows+self._current_gaps+count,self._current_property["column_number"])
 
                 if not self.checkExempt(value):
-                    if str(value).startswith("10."):
+                    if str(value).startswith("10."): # Basic validation before attempting to access
                         if value!=self.last_doi_requested:
                             url_request =  requests.get("https://dx.doi.org/"+str(value),headers={"Accept":"text/bibliography; style=american-geophysical-union; locale=en-EN"})
-                            self.last_doi_requested = value
-                            if url_request.status_code!=200:
+                            self.last_doi_requested = value # Cache the previous DOI request to streamline the process and avoid unecessary (slow) network requests
+                            if url_request.status_code!=200: # Meaning the DOI is not valid
                                 self._current_pass = False
                                 fail_count += 1
                                 output_string +=  str("1. The value in "+self._current_property["column"]+str(count+1+self._current_header_rows+self._current_gaps)+" is not a valid DOI\n")
@@ -439,8 +438,8 @@ class Verifier:
                 self.writeOutput("1. Values in column "+self._current_property["column"]+" are not valid DOIs")
             elif fail_count>0:
                 self.writeOutput(output_string)
-    def checkReference(self):
-        def doCheck(self):
+    def checkReference(self): # Checks that the values specified as DOI's resolve to a reference that matches the one in the spreadsheet
+        def doCheck(self): # Container method to apply the logic
             output_string = ""
             fail_count = 0
             self.last_doi_requested = None
@@ -450,22 +449,22 @@ class Verifier:
                 value = self.current_sheet.cell_value(self._current_header_rows+self._current_gaps+count,self._current_property["column_number"])
 
                 if not self.checkExempt(value):
-                    if str(doi).startswith("10."):
+                    if str(doi).startswith("10."): # Basic validation before network request
                         if doi==self.last_doi_requested:
                             url_request = self.last_url_request
                         else:
                             url_request =  requests.get("https://dx.doi.org/"+str(doi),headers={"Accept":"text/bibliography; style=american-geophysical-union; locale=en-EN"})
                             self.last_doi_requested = doi
                             self.last_url_request = url_request
-                        if url_request.status_code==200:
+                        if url_request.status_code==200: # The request received a valid response
                             try:
-                                doi_acquired_reference = url_request._content.decode("utf-8")
+                                doi_acquired_reference = url_request._content.decode("utf-8") # Should be formatted as UTF-8 (though many seem not to be)
                                 if doi_acquired_reference!=value:
-                                    self.last_acquired_reference = doi_acquired_reference
+                                    self.last_acquired_reference = doi_acquired_reference # Cache the previous request to streamline the script (fewer network requests)
 
                                     self._current_warning = True
                                     fail_count += 1
-                                    output_string += "1. The value in "+self._current_property["column"]+str(count+1+self._current_header_rows+self._current_gaps)+" does not match the DOI acquired reference which is: "+doi_acquired_reference
+                                    output_string += "1. The value in "+self._current_property["column"]+str(count+1+self._current_header_rows+self._current_gaps)+" does not match the DOI acquired reference which is: "+doi_acquired_reference+"\n"
                             except:
                                 output_string += "The reference can not be decoded\n"
 
@@ -572,14 +571,14 @@ class Verifier:
         else:
             return None
     @staticmethod
-    def ordToCharacters(input):
+    def ordToCharacters(input): # Translates an array of orders into a string (for index to alphabetic index)
         if input is not None:
             output = [input]
             while output[-1]>26:
                 output += [output[-1]//26]
                 output[-2] = output[-2]%26
             output_str = "".join([chr(out+65) for out in output])[::-1]
-            return output_str # Translates an array of orders into a string (for index to alphabetic index)
+            return output_str
         else:
             return None
 
